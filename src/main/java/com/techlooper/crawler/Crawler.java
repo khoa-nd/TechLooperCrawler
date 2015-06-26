@@ -41,9 +41,9 @@ public abstract class Crawler {
                     if (status == HttpStatus.OK) {
                         List<?> data = getCrawlerDataProcessor().processRawData(responseEntity.getBody());
                         getCrawlerDataStorage().store(data);
-                        LOGGER.info("%d %s %d", status.value(), requestURI, data.size());
+                        LOGGER.info("{} {} {}", status.value(), requestURI, data.size());
                     } else {
-                        LOGGER.info("%d %s %s", status.value(), requestURI, responseEntity.getBody());
+                        LOGGER.info("{} {} {}", status.value(), requestURI, responseEntity.getBody());
                     }
                 } catch (Exception ex) {
                     LOGGER.error(ex.getMessage(), ex);
