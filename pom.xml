@@ -4,7 +4,7 @@
     <groupId>com.techlooper</groupId>
 	<artifactId>TechLooperCrawler</artifactId>
 	<name>TechLooperCrawler</name>
-    <version>1.0</version>
+    <version>1.0.0.RELEASE</version>
 
     <properties>
         <super-csv.version>2.3.1</super-csv.version>
