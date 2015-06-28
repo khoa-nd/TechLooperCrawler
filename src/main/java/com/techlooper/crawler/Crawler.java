@@ -45,7 +45,7 @@ public abstract class Crawler {
                     } else {
                         LOGGER.info("{} {} {}", status.value(), requestURI, responseEntity.getBody());
                     }
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (Exception ex) {
                     LOGGER.error(ex.getMessage(), ex);
                 }
