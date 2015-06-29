@@ -1,12 +1,12 @@
 package com.techlooper.strategy;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 6/24/15.
  */
 public interface CrawlerStrategy {
 
-    List<String> getSeedQuery();
+    Set<String> getSeedQuery();
 
 }
