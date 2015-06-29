@@ -32,10 +32,9 @@ public abstract class Crawler {
 
         for (CrawlerStrategy crawlerStrategy : crawlerStrategies) {
             for (MultiValueMap<String, String> params : crawlerSource.getQueryParams(crawlerStrategy)) {
-                UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(crawlerSource.getEndpoint()).queryParams(params).build(true);
-                URI requestURI = uriComponents.toUri();
-
                 try {
+                    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(crawlerSource.getEndpoint()).queryParams(params).build(true);
+                    URI requestURI = uriComponents.toUri();
                     ResponseEntity responseEntity = restTemplate.exchange(requestURI, HttpMethod.GET, crawlerSource.getRequestEntity(), crawlerSource.getResponseType());
                     HttpStatus status = responseEntity.getStatusCode();
                     if (status == HttpStatus.OK) {

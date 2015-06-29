@@ -4,6 +4,7 @@ import ch.qos.logback.core.rolling.FixedWindowRollingPolicy
 import ch.qos.logback.core.rolling.RollingFileAppender
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy
 
+import static ch.qos.logback.classic.Level.ALL
 import static ch.qos.logback.classic.Level.ERROR
 import static ch.qos.logback.classic.Level.INFO
 
@@ -30,6 +31,6 @@ appender("LINKEDIN_SKILL_CRAWLER_INFO", RollingFileAppender) {
     }
 }
 
-logger("com.techlooper.crawler", INFO, ["LINKEDIN_SKILL_CRAWLER_INFO"], Boolean.FALSE)
+logger("com.techlooper.crawler", ALL, ["LINKEDIN_SKILL_CRAWLER_INFO"], Boolean.FALSE)
 
 root(DEBUG, ["STDOUT"])
