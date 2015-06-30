@@ -4,7 +4,7 @@
     <groupId>com.techlooper</groupId>
 	<artifactId>TechLooperCrawler</artifactId>
 	<name>TechLooperCrawler</name>
-    <version>1.0</version>
+    <version>1.0.2.RELEASE</version>
 
     <properties>
         <super-csv.version>2.3.1</super-csv.version>
@@ -19,6 +19,7 @@
         <slf4j-api.version>1.7.9</slf4j-api.version>
         <logback.version>1.1.2</logback.version>
         <groovy.version>2.3.5</groovy.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
     </properties>
 
 	<dependencies>
@@ -68,6 +69,11 @@
             <artifactId>super-csv</artifactId>
             <version>${super-csv.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -115,6 +121,19 @@
                     </goals>
                 </execution>
             </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>com.techlooper.Application</mainClass>
+                    </manifest>
+                </archive>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
         </plugin>
     </plugins>
 	</build>

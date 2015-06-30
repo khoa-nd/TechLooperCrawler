@@ -1,5 +1,7 @@
 package com.techlooper.config;
 
+import com.techlooper.crawler.Crawler;
+import com.techlooper.crawler.linkedin.LinkedInSkillCrawler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,11 @@ public class AppConfiguration {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public Crawler crawler() {
+        return new LinkedInSkillCrawler();
     }
 
 }

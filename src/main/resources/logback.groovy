@@ -6,20 +6,20 @@ import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy
 
 import static ch.qos.logback.classic.Level.ALL
 import static ch.qos.logback.classic.Level.ERROR
+import static ch.qos.logback.classic.Level.INFO
 
 scan()
 
-appender("CONSOLE", ConsoleAppender) {
-    withJansi = true
+appender("STDOUT", ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
-        pattern = "%d{dd-MM-yyyy HH:mm:ss} %msg %n"
+        pattern = "%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     }
 }
 
-appender("LINKEDIN_SKILL_CRAWLER", RollingFileAppender) {
-    file = "linkedin_skill_crawler.log"
+appender("LINKEDIN_SKILL_CRAWLER_INFO", RollingFileAppender) {
+    file = "linkedin_skill_crawler_info.log"
     rollingPolicy(FixedWindowRollingPolicy) {
-        fileNamePattern = "linkedin_skill_crawler_%i.log"
+        fileNamePattern = "linkedin_skill_crawler_info_%i.log"
         minIndex = 1
         maxIndex = 24
     }
@@ -27,10 +27,10 @@ appender("LINKEDIN_SKILL_CRAWLER", RollingFileAppender) {
         maxFileSize = "5MB"
     }
     encoder(PatternLayoutEncoder) {
-        pattern = "%d{dd-MM-yyyy HH:mm:ss} %msg %n"
+        pattern = "%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     }
 }
 
-logger("com.techlooper.crawler.linkedin.LinkedInSkillCrawler", ERROR, ["CONSOLE", "LINKEDIN_SKILL_CRAWLER"], Boolean.FALSE)
+logger("com.techlooper.crawler", ALL, ["LINKEDIN_SKILL_CRAWLER_INFO"], Boolean.FALSE)
 
-root(ERROR, ["CONSOLE", "ROOT", "LINKEDIN_SKILL_CRAWLER"])
+root(DEBUG, ["STDOUT"])

@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -31,12 +32,21 @@ public abstract class Crawler {
 
         for (CrawlerStrategy crawlerStrategy : crawlerStrategies) {
             for (MultiValueMap<String, String> params : crawlerSource.getQueryParams(crawlerStrategy)) {
-                UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(crawlerSource.getEndpoint()).queryParams(params).build(true);
-                ResponseEntity responseEntity = restTemplate.exchange(uriComponents.toUri(), HttpMethod.GET, crawlerSource.getRequestEntity(), crawlerSource.getResponseType());
-
-                if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                    List<?> data = getCrawlerDataProcessor().processRawData(responseEntity.getBody());
-                    getCrawlerDataStorage().store(data);
+                try {
+                    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(crawlerSource.getEndpoint()).queryParams(params).build(true);
+                    URI requestURI = uriComponents.toUri();
+                    ResponseEntity responseEntity = restTemplate.exchange(requestURI, HttpMethod.GET, crawlerSource.getRequestEntity(), crawlerSource.getResponseType());
+                    HttpStatus status = responseEntity.getStatusCode();
+                    if (status == HttpStatus.OK) {
+                        List<?> data = getCrawlerDataProcessor().processRawData(responseEntity.getBody());
+                        getCrawlerDataStorage().store(data);
+                        LOGGER.info("{} {} {}", status.value(), requestURI, data.size());
+                    } else {
+                        LOGGER.info("{} {} {}", status.value(), requestURI, responseEntity.getBody());
+                    }
+                    Thread.sleep(1000);
+                } catch (Exception ex) {
+                    LOGGER.error(ex.getMessage(), ex);
                 }
             }
         }

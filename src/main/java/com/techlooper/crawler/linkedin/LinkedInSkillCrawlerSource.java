@@ -4,6 +4,7 @@ import com.techlooper.crawler.CrawlerSource;
 import com.techlooper.model.linkedin.LinkedInSkillResultList;
 import com.techlooper.strategy.CrawlerStrategy;
 import com.techlooper.strategy.impl.AlphabetCrawlerStrategy;
+import com.techlooper.strategy.impl.SeedSkillCrawlerStrategy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -11,6 +12,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by NguyenDangKhoa on 6/24/15.
@@ -36,14 +38,14 @@ public class LinkedInSkillCrawlerSource implements CrawlerSource {
     @Override
     public List<CrawlerStrategy> getCrawlerStrategies() {
         List<CrawlerStrategy> strategies = new ArrayList<>();
-        strategies.add(new AlphabetCrawlerStrategy());
+        strategies.add(new SeedSkillCrawlerStrategy());
         return strategies;
     }
 
     @Override
     public List<MultiValueMap<String, String>> getQueryParams(CrawlerStrategy crawlerStrategy) {
         List<MultiValueMap<String, String>> params = new ArrayList<>();
-        List<String> seedQueries = crawlerStrategy.getSeedQuery();
+        Set<String> seedQueries = crawlerStrategy.getSeedQuery();
         for (String seedQuery : seedQueries) {
             MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
             queries.add("query", seedQuery);

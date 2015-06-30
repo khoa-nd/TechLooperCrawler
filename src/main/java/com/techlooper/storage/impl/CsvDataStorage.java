@@ -28,8 +28,6 @@ public abstract class CsvDataStorage<T> implements CrawlerDataStorage<T> {
             final CellProcessor[] processors = getProcessors();
             final String[] header = getColumnHeaders();
 
-            beanWriter.writeHeader(header);
-
             for (T item : dataset) {
                 beanWriter.write(item, header, processors);
             }
