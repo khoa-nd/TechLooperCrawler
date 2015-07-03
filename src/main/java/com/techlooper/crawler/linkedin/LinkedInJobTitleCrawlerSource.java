@@ -4,6 +4,7 @@ import com.techlooper.crawler.CrawlerSource;
 import com.techlooper.model.linkedin.LinkedInSkillResultList;
 import com.techlooper.strategy.CrawlerStrategy;
 import com.techlooper.strategy.impl.AlphabetCrawlerStrategy;
+import com.techlooper.strategy.impl.DictionaryWordCrawlerStrategy;
 import com.techlooper.strategy.impl.SeedSkillCrawlerStrategy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -38,8 +39,8 @@ public class LinkedInJobTitleCrawlerSource implements CrawlerSource {
     @Override
     public List<CrawlerStrategy> getCrawlerStrategies() {
         List<CrawlerStrategy> strategies = new ArrayList<>();
-        strategies.add(new AlphabetCrawlerStrategy());
         strategies.add(new SeedSkillCrawlerStrategy());
+        strategies.add(new DictionaryWordCrawlerStrategy());
         return strategies;
     }
 
